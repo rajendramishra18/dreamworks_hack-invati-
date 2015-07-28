@@ -1,0 +1,31 @@
+#include "headers.h"
+#include "point.cpp"
+
+class fish
+{
+	private:
+		point p[3];
+	public:
+		cube()
+		{
+			p[0].setPoint(0.05, 0);
+			p[1].setPoint(0,0.05);
+			p[2].setPoint(0,-0.05);
+		}
+
+		void drawFace(point p1,point p2,point p3)
+		{
+			p1.drawPoint();
+	        	p2.drawPoint();
+	        	p3.drawPoint();
+		}
+
+		void drawCube()
+		{
+		glBegin(GL_TRIANGLES);
+		glColor3f(1,0,0);
+		drawFace(p[0],p[1],p[2]);
+
+		glEnd();
+		}
+};

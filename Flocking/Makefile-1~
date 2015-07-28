@@ -1,0 +1,4 @@
+all:
+	g++ fishflock.cpp view.cpp fish.cpp point.cpp -lGL -lGLU -lglut
+
+

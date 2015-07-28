@@ -1,0 +1,112 @@
+#include "headers.h"
+#include "point.cpp"
+#include <stdlib.h>
+#include <ctime> 
+#include<math.h>
+
+class fish
+{
+	private:
+		point p[3];
+		double angle;
+		double ** rot;	
+
+	public:
+		fish()
+		{
+			//srand(time(NULL));
+			//angle=349;//rand()%360;
+			setAngle(349);
+			std::cout<<angle<<std::endl;
+			p[0].setPoint(0.05, 0);
+			p[1].setPoint(0,0.05);
+			p[2].setPoint(0,-0.05);
+		}
+
+		void findRotMat()
+		{
+			rot=new double *[2];
+			rot[0]=new double[2];
+			rot[1]=new double[2];
+			rot[0][0]=cos(angle);
+			rot[1][1]=rot[0][0];
+			rot[0][1]=sin(angle);
+			rot[1][0]=-rot[0][1];
+		}
+	
+		double ** getRotMat()
+		{
+			return rot;
+		}
+
+		double getAngle()
+		{
+			return angle;	
+		}
+		
+		void setAngle(double a)
+		{
+			angle=a;
+			findRotMat();
+		}
+
+		void setCoord(float incr)
+		{
+			double a;
+			/*if(angle<90)
+			{
+				a=angle;
+				p[0].setPoint((p[0].getX()+incr), (p[0].getY()));
+				p[1].setPoint((p[1].getX()+incr), (p[1].getY()));
+				p[2].setPoint((p[2].getX()+incr), (p[2].getY()));
+				/*p[0].setPoint((p[0].getX()+incr*cos(a)), (p[0].getY()+incr*sin(a)));
+				p[1].setPoint((p[1].getX()+incr*cos(a)), (p[1].getY()+incr*sin(a)));
+				p[2].setPoint((p[2].getX()+incr*cos(a)), (p[2].getY()+incr*sin(a)));*/
+			/*}
+			else
+				if(angle<180)
+				{
+					a=180-angle;
+					p[0].setPoint((p[0].getX()-incr*cos(a)), (p[0].getY()+incr*sin(a)));
+					p[1].setPoint((p[1].getX()-incr*cos(a)), (p[1].getY()+incr*sin(a)));
+					p[2].setPoint((p[2].getX()-incr*cos(a)), (p[2].getY()+incr*sin(a)));
+				}
+				else
+					if(angle<270)
+					{
+						a=angle-180;
+						p[0].setPoint((p[0].getX()-incr*cos(a)), (p[0].getY()-incr*sin(a)));
+						p[1].setPoint((p[1].getX()-incr*cos(a)), (p[1].getY()-incr*sin(a)));
+						p[2].setPoint((p[2].getX()-incr*cos(a)), (p[2].getY()-incr*sin(a)));
+					}
+					else
+					{
+						a=360-angle;
+						p[0].setPoint((p[0].getX()+incr*cos(a)), (p[0].getY()-incr*sin(a)));
+						p[1].setPoint((p[1].getX()+incr*cos(a)), (p[1].getY()-incr*sin(a)));
+						p[2].setPoint((p[2].getX()+incr*cos(a)), (p[2].getY()-incr*sin(a)));
+					}*/
+				p[0].setPoint((p[0].getX()+incr), (p[0].getY()));
+				p[1].setPoint((p[1].getX()+incr), (p[1].getY()));
+				p[2].setPoint((p[2].getX()+incr), (p[2].getY()));
+		}
+
+		void drawFace(point p1,point p2,point p3)
+		{
+			glColor3f(1,0,0);
+			p1.drawPoint();
+			glColor3f(0,1,0);
+	        	p2.drawPoint();
+			glColor3f(0,0,1);
+	        	p3.drawPoint();
+		}
+
+		void drawfish()
+		{
+			glBegin(GL_TRIANGLES);
+			glColor3f(1,0,0);
+			drawFace(p[0],p[1],p[2]);
+
+			glEnd();
+		}
+};
